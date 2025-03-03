@@ -1,0 +1,153 @@
+﻿@model AadimPark.Models.Admin_list
+
+@{
+    ViewBag.Title = "Add Admin";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        overflow:hidden;
+    }
+
+    .containera {
+        background: whitesmoke;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        translate: 140% 40%;
+    }
+    .a {
+        width: 150px;
+        height: 50px;
+        background-color: white;
+        border-radius: 40px 40px 40px 40px;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: #156FB4;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #0f5a94;
+        }
+
+    .message {
+        text-align: center;
+        margin-top: 1rem;
+        font-weight: bold;
+    }
+
+    .success {
+        color: green;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+
+<div class="containera">
+    <h2>Add Admin</h2>
+    <form id="adminForm">
+        <div class="form-group">
+            <label for="adminid">Admin ID</label>
+            <select id="adminid" name="Admin_id" class="form-control">
+                <option value="">Select Admin ID</option>
+                @foreach (var item in ViewBag.adminid)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="areaid">Area ID</label>
+            <select id="areaid" name="Area_id" class="form-control">
+                <option value="">Select Area ID</option>
+                @foreach (var item in ViewBag.areaid)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="a">Add Admin</button>
+    </form>
+
+    <div id="responseMessage" class="message"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#adminForm").submit(function (event) {
+            event.preventDefault();
+
+            var adminId = $("#adminid").val();
+            var areaId = $("#areaid").val();
+
+            if (!adminId || !areaId) {
+                $("#responseMessage").text("Please select both Admin ID and Area ID").addClass("error").removeClass("success");
+                return;
+            }
+
+            var formData = {
+                Admin_id: adminId,
+                Area_id: areaId
+            };
+
+            $.ajax({
+                url: '@Url.Action("Add", "Admin")',
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    $("#responseMessage").text("Admin added successfully!").addClass("success").removeClass("error");
+                    $("#adminForm")[0].reset();
+                },
+                error: function () {
+                    $("#responseMessage").text("Error adding admin. Please try again.").addClass("error").removeClass("success");
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<style>
+    body {
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    .Login-container {
+        width: 100%;
+        height: 79vh;
+        position: ;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: blur(5px);
+        z-index: 0;
+    }
+
+    .container {
+        width: 100%;
+        
+        position: relative;
+        background: whitesmoke; 
+    }
+
+    .Login-form {
+        height: 70%;
+        width: 45%;
+        position:;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        display: flex;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.1);
+        backdrop-filter: none;
+        border-radius: 10px;
+        text-align: center;
+        justify-content: center
+    }
+
+
+
+    .form-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        gap: 12px;
+    }
+
+        .form-right input {
+            width: 80%;
+            height: 30px;
+            border-radius: 13.5px;
+            border: none;
+        }
+        input{
+            padding:5px;
+        }
+    .a {
+        width: 119px;
+        height: 50px;
+        background-color: rgba(255, 102, 0, 0.5);
+        border-radius: 40px 40px 40px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border:none;
+    }
+    input {
+        padding: 15px;
+    }
+    body {
+        overflow: hidden
+    }
+</style>
+
+<div class="Login-container">
+    @*<img src="~/Images/aaa.jpg" class="background-image" />*@
+    <div class="Login-form">
+      
+        <form class="form-right" id="loginForm">
+            <input type="text" placeholder="Email" id="i1" />
+            <input type="password" placeholder="Password" id="i2" />
+            <input type="text" placeholder="Username" id="i3" />
+
+            <span id="span_Login">@ViewBag.Notification</span>
+            <span id="span_Login2"></span>
+
+            <label> </label>
+            <button type="submit" id="SUBMIT" class="a">Submit</button>
+            Already Signed Up?  <div class="a"><a href="@Url.Action("Login", "User")">Login</a></div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var email = document.getElementById('i1').value.trim();
+        var password = document.getElementById('i2').value.trim();
+        var name = document.getElementById('i3').value.trim();
+        debugger
+        let usernameRegex = /^[a-zA-Z0-9_]{4,15}$/;
+        if (!usernameRegex.test(name)) {
+            $("#span_Login2").text("invalid name").show();
+            return;
+        } else {
+            $("#span_Login2").text("invalid name").hide();
+
+        }
+        let emailRegex = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+
+                $("#span_Login2").text("Invalid email").show();
+
+                return
+            } else {
+                $("#span_Login2").text("Invalid email").hide();
+
+        }
+        
+        if (email === "" || password === "" || name === "") {
+            $("#span_Login2").text("Empty Credits").show();
+            return;
+
+        }
+        else {
+
+            var Data = {
+                Email: email,
+                Password: password,
+                Username: name,
+            };
+
+            console.log(Data.Email);
+
+            $.ajax({
+                url: '/User/SignUp',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(Data),
+                success: function (response) {
+                    if (response.Success) {
+                        window.location.href = response.redirectUrl;
+                    } else {
+                        document.getElementById('span_Login').innerHTML = "Already exists"
+
+                    }
+                },
+                error: function () {
+                    alert("Error while logging in. Please try again.");
+                }
+            });
+        }
+    });
+</script>   
+

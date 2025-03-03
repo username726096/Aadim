@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar1">
+        <div class="navbar1-left a-holder">
+            
+            <a href="~/Dashboard/dashboard">AadimPark</a>
+
+        </div>
+        <div class="navbar1-right" style="justify-content:center;align-items:center">
+
+            <div class="a-holder"><a href="~/Area/AreaWatch">Area</a></div>
+            <div>|</div>
+            <div class="a-holder">
+                <a href="~/Booking/booking">Book</a>
+            </div>
+            <div>|</div>
+            @if (Session["Id"] != null)
+            {
+
+                if (Session["Role"].ToString() == "User" || Session["Role"].ToString() == "Admin")
+                {
+                    <div class="a-holder">
+                        <a href="~/Booking/userBooks">BookedSpot</a>
+                    </div>
+                    <div>|</div>
+
+                }
+
+            }
+
+            @if (Session["Id"] == null)
+            {
+
+                <div class="a-holder">
+                    <a href="@Url.Action("Login", "User")">SIGN IN</a>
+                </div>
+
+            }
+            else
+            {
+                
+                var id = (Session["Id"]);
+                <div class="dropdown">
+                    <div class="dropdown-toggle a-holder " onclick="toggleDropdown()">Profile</div>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="@Url.Action("Edit", "User", new { id = id })">Edit</a>
+                        <a onclick="deleteUser(id)">Delete</a>
+                        <a href="@Url.Action("Logout", "User", new { id = id })">Logout</a>
+                    </div>
+                </div>
+            }
+
+
+
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+    <style>
+        #dropdownMenu {
+            display: none;
+            flex-direction: column;
+            padding:0px 20px;
+            position:absolute;
+            right:-13px;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            max-width: 100%;
+            padding: 5% 5% 5% 5%;
+            height: 60rem;
+            background-color: rgba(255, 102, 0, 0.5);
+        }
+
+        .navbar1 {
+            display: flex;
+            position: absolute;
+            background-color: transparent;
+
+            justify-content: space-between;
+            width: 100%;
+            z-index: 3;
+            height: 6%;
+            align-items: center;
+            top: 1%;
+            padding:0px 20px;
+        }
+        .dropdown-toggle:hover{
+            cursor:pointer;
+        }
+        .navbar1-right {
+            display: flex;
+            gap: 10px;
+            color: white;
+            color: white;
+            font-family: "ITC Avant Garde Gothic Std";
+        }
+
+        body::-webkit-scrollbar {
+            display: none; 
+        }
+        .a-holder {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: black;
+        }
+        .navbar1 a {
+            text-decoration: none;
+            color: black;
+            height: 75%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center
+        }
+            .navbar1 a:hover {
+                background-color:  rgba(0, 0, 0, 0.1);
+                rotate:360deg;
+                
+                color: white;
+                transition: all ease-in-out 0.3s;
+                transform: scale(1.1);
+            }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown a {
+            color: black;
+        }
+        .navbar1-left {
+            height: 100%;
+        }
+        .navbar1-right {
+            height: 100%;
+        }
+        input::placeholder{
+            text-align:left !important
+        }
+
+        .userBooks-container {
+            width: 100%;
+            height: 79vh;
+            top: 5%;
+            left: auto;
+            background: whitesmoke;
+        }
+
+            table {
+                gap: 2rem;
+            }
+
+             table {
+                width: 90%;
+                border-collapse: collapse;
+                text-align: left;
+                margin: 0 auto;
+                font-family: Arial, sans-serif;
+            }
+
+            table th,
+            table td {
+                padding: 15px;
+                border: 1px solid #ddd;
+            }
+
+            table a {
+                color: black;
+            }
+
+            table p {
+                color: black;
+                margin: 0;
+                padding: 0;
+            }
+            table{
+                background-color:whitesmoke;
+            }
+     
+    </style>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        function toggleDropdown() {
+            const menu = document.getElementById("dropdownMenu");
+            menu.style.display = menu.style.display === "none" ? "flex" : "none";
+        }
+
+        
+        window.onclick = function (event) {
+            const menu = document.getElementById("dropdownMenu");
+            if (!event.target.matches('.dropdown-toggle')) {
+                if (menu && menu.style.display === "flex") {
+                    menu.style.display = "none";
+                }
+            }
+        }
+        function deleteUser(id) {
+            debugger
+            $.ajax({
+                url: '/User/Delete',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: id }),
+                success: function (response) {
+                    if (response.success) {
+                        alert('User deleted successfully.');
+                        window.open.href = '/Dashboard/dashboard';
+                    } else {
+                        alert('Deletion failed. Please try again.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while trying to delete the user.');
+                },
+            });
+
+        }
+    </script>
+</body>
+
+</html>

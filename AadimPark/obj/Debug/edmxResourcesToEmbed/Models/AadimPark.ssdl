@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AadimParkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin_list">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Admin_id" Type="int" />
+    <Property Name="Area_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="55" />
+    <Property Name="Address" Type="varchar" MaxLength="55" />
+    <Property Name="Total_capacity" Type="int" />
+  </EntityType>
+  <EntityType Name="Area_details">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fourWheel_capacity" Type="int" />
+    <Property Name="twoWheel_capacity" Type="int" />
+    <Property Name="fourWheel_occupied" Type="int" />
+    <Property Name="twoWheel_occupied" Type="int" />
+    <Property Name="Area_id" Type="int" />
+    <Property Name="two_price" Type="int" />
+    <Property Name="four_price" Type="int" />
+  </EntityType>
+  <EntityType Name="bill">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="55" />
+    <Property Name="money" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="entry_id" Type="int" />
+    <Property Name="booking_id" Type="int" />
+  </EntityType>
+  <EntityType Name="booking">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="int" />
+    <Property Name="Vechical_number" Type="varchar" MaxLength="8" />
+    <Property Name="Time_table_id" Type="int" />
+    <Property Name="Area_id" Type="int" />
+    <Property Name="vechical_type" Type="varchar" MaxLength="55" />
+    <Property Name="paid" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="cancled_booking">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="time_table_id" Type="int" />
+    <Property Name="userId" Type="int" />
+    <Property Name="vechical_number" Type="varchar" MaxLength="55" />
+  </EntityType>
+  <EntityType Name="deleted_entry">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descrpition" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="entry">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="booking_id" Type="int" />
+    <Property Name="entry_time" Type="time" Precision="7" />
+    <Property Name="exit_time" Type="time" Precision="7" />
+    <Property Name="Vechical_number" Type="varchar" MaxLength="55" />
+    <Property Name="Vechical_type" Type="varchar" MaxLength="55" />
+    <Property Name="Status" Type="varchar" MaxLength="5" />
+    <Property Name="Area_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Time_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="month" Type="int" />
+    <Property Name="month_from" Type="varchar" MaxLength="55" />
+    <Property Name="month_to" Type="varchar" MaxLength="55" />
+    <Property Name="week" Type="int" />
+    <Property Name="week_from" Type="int" />
+    <Property Name="week_to" Type="int" />
+    <Property Name="day" Type="int" />
+    <Property Name="day_from" Type="datetime" />
+    <Property Name="day_to" Type="datetime" />
+    <Property Name="hour" Type="int" />
+    <Property Name="hour_from" Type="time" Precision="7" />
+    <Property Name="hour_to" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="55" />
+    <Property Name="Email" Type="varchar" MaxLength="55" />
+    <Property Name="Password" Type="varchar" MaxLength="55" />
+    <Property Name="Role" Type="varchar" MaxLength="55" />
+    <Property Name="Member" Type="varchar" MaxLength="55" />
+  </EntityType>
+  <Association Name="FK__Admin_lis__Admin__02FC7413">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Admin_list" Type="Self.Admin_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Admin_list">
+        <PropertyRef Name="Admin_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Admin_lis__Area___03F0984C">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="Admin_list" Type="Self.Admin_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Admin_list">
+        <PropertyRef Name="Area_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Area_deta__Area___656C112C">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="Area_details" Type="Self.Area_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Area_details">
+        <PropertyRef Name="Area_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__bill__booking_id__2B0A656D">
+    <End Role="booking" Type="Self.booking" Multiplicity="0..1" />
+    <End Role="bill" Type="Self.bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="booking">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="bill">
+        <PropertyRef Name="booking_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__bill__entry_id__2A164134">
+    <End Role="entry" Type="Self.entry" Multiplicity="0..1" />
+    <End Role="bill" Type="Self.bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="entry">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="bill">
+        <PropertyRef Name="entry_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__booking__Area_id__6C190EBB">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="booking" Type="Self.booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="booking">
+        <PropertyRef Name="Area_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__booking__Time_ta__6B24EA82">
+    <End Role="Time_table" Type="Self.Time_table" Multiplicity="0..1" />
+    <End Role="booking" Type="Self.booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Time_table">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="booking">
+        <PropertyRef Name="Time_table_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__booking__userId__6A30C649">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="booking" Type="Self.booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="booking">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__entry__Area_id__14270015">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="entry" Type="Self.entry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="entry">
+        <PropertyRef Name="Area_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__entry__booking_i__71D1E811">
+    <End Role="booking" Type="Self.booking" Multiplicity="0..1" />
+    <End Role="entry" Type="Self.entry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="booking">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="entry">
+        <PropertyRef Name="booking_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AadimParkModelStoreContainer">
+    <EntitySet Name="Admin_list" EntityType="Self.Admin_list" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Area_details" EntityType="Self.Area_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bill" EntityType="Self.bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cancled_booking" EntityType="Self.cancled_booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="deleted_entry" EntityType="Self.deleted_entry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="entry" EntityType="Self.entry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Time_table" EntityType="Self.Time_table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Admin_lis__Admin__02FC7413" Association="Self.FK__Admin_lis__Admin__02FC7413">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Admin_list" EntitySet="Admin_list" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Admin_lis__Area___03F0984C" Association="Self.FK__Admin_lis__Area___03F0984C">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Admin_list" EntitySet="Admin_list" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Area_deta__Area___656C112C" Association="Self.FK__Area_deta__Area___656C112C">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Area_details" EntitySet="Area_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK__bill__booking_id__2B0A656D" Association="Self.FK__bill__booking_id__2B0A656D">
+      <End Role="booking" EntitySet="booking" />
+      <End Role="bill" EntitySet="bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK__bill__entry_id__2A164134" Association="Self.FK__bill__entry_id__2A164134">
+      <End Role="entry" EntitySet="entry" />
+      <End Role="bill" EntitySet="bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK__booking__Area_id__6C190EBB" Association="Self.FK__booking__Area_id__6C190EBB">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="booking" EntitySet="booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__booking__Time_ta__6B24EA82" Association="Self.FK__booking__Time_ta__6B24EA82">
+      <End Role="Time_table" EntitySet="Time_table" />
+      <End Role="booking" EntitySet="booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__booking__userId__6A30C649" Association="Self.FK__booking__userId__6A30C649">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="booking" EntitySet="booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__entry__Area_id__14270015" Association="Self.FK__entry__Area_id__14270015">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="entry" EntitySet="entry" />
+    </AssociationSet>
+    <AssociationSet Name="FK__entry__booking_i__71D1E811" Association="Self.FK__entry__booking_i__71D1E811">
+      <End Role="booking" EntitySet="booking" />
+      <End Role="entry" EntitySet="entry" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

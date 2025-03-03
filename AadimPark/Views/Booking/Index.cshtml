@@ -1,0 +1,122 @@
+﻿@model AadimPark.Models.ViewModels.BookingVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .index-Users {
+        position: ;
+        top: 10%;
+        left: 5%;
+        width: 100%;
+    }
+
+        .index-Users a {
+            color: white;
+        }
+
+    table {
+        width: 90%;
+    }
+
+    table, td, tr {
+        border: 1px solid black
+    }
+
+    .index-Users button {
+        background-color: black;
+    }
+    .a {
+        width: 119px;
+        height: 50px;
+        background-color: rgba(255, 102, 0, 0.5);
+        border-radius: 40px 40px 40px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+</style>
+
+    <div class="index-Users">
+        <table>
+
+            <thead>
+                <tr>
+
+                    <th>SN</th>
+                    <th>User</th>
+                    <th>Vechical_number</th>
+                    <th>Vechical_type</th>
+                    <th>Area</th>
+                    <th>Paid</th>
+
+
+                    <th style="margin-left: 50px; margin-right: 20px;">Actions</th>
+
+                </tr>
+
+
+
+
+            </thead>
+            <tbody>
+                @{
+                    int serialNumber = 1;
+                }
+                @foreach (var item in Model.Bookings)
+                {
+
+                    <tr>
+                        <td> @serialNumber </td>
+                        <td>@item.UserName</td> <!-- Replace item.User.Username with item.UserName -->
+
+                        <td>@item.VehicleNumber</td> <!-- Ensure property names match your ViewModel -->
+                        <td>@item.VehicleType</td>
+                        <td>@item.AreaName</td> <!-- Replace item.Area.Name with item.AreaName -->
+
+                        <td>@item.Paid</td>
+                        <td>
+                            <button class="a" style="color:white" onclick="deleteFunction(@item.id)">Delete</button>
+                        </td>
+                    </tr>
+
+                    serialNumber++;
+                }
+
+            </tbody>
+
+
+
+
+
+
+
+        </table>
+    </div>
+    <script type="text/javascript">
+        function deleteFunction(id) {
+            debugger
+            $.ajax({
+                url: '/Entry/Delete',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: id }),
+                success: function (response) {
+                    if (response.success) {
+                        alert('User deleted successfully.');
+                        location.reload();
+                    } else {
+                        alert('Deletion failed. Please try again.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while trying to delete the user.');
+                },
+            });
+
+
+        }
+    </script>
+

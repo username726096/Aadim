@@ -1,0 +1,229 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+<style>
+    body {
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    .Login-container {
+        width: 100%;
+        height: 79vh;
+        position: ; 
+    
+    }
+
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; 
+        height: 100%;
+        filter: blur(5px);
+        z-index: 0;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+    
+    }
+
+    .Login-form {
+        height: 50%;
+        width: 45%;
+        position: absolute;
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        text-align: center;
+        display: flex;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.1);
+        backdrop-filter: none;
+        border-radius: 10px;
+        text-align: center;
+        justify-content:center
+    }
+
+    .form-left {
+        width: 50%;
+    
+        background-color:white;
+    }
+
+    .form-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        gap: 12px;
+        
+    }
+
+        .form-right input {
+            width: 80%;
+            height: 30px;
+            border-radius: 13.5px;
+            border: none;
+        }
+    .alert-warning{
+        position:;
+        top:0%;
+        width:100%;
+        text-align:center;
+    }
+    .img-holder{
+        display:flex;
+       
+        position:fixed;
+    }
+    .img-holder img{
+       
+    }
+    .top {
+        width: 100%;
+        top: 10%;
+    }
+    .right {
+        height: 100%;
+        right: 10%;
+        width: 5%;
+        flex-direction: column;
+    }
+    .left {
+        height: 100%;
+        left: 10%;
+        width: 5%;
+        flex-direction: column;
+    }
+    .bottom {
+        width: 100%;
+        bottom:10%;
+    }
+
+    .top img {
+        height: 100%;
+        width: 5%;
+        rotate: 90deg;
+    }
+    .bottom img {
+        height: 100%;
+        width: 5%;
+    }
+    .left img, .right img {
+        width: 100%;
+        
+    }
+    #loginForm a{
+        color:black;
+    }
+
+    input{
+        padding:5px 10px;
+        text-align:center
+    }
+    button{
+        border-radius:5px 5px  5px 5px;
+        background:tomato;
+    }
+    .Login-container a{
+        text-decoration:none;
+    }
+    .a {
+        width: 119px;
+        height: 50px;
+        background-color: rgba(255, 102, 0, 0.5);
+        border-radius: 40px 40px 40px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border:none;
+    }
+        
+input{
+    padding:15px;
+}
+    body {
+        overflow: hidden;
+    }
+</style>
+
+<div class="Login-container">
+    @if (TempData["Noti"] != null)
+    {
+        <div class="alert alert-warning">
+            @TempData["Noti"]
+        </div>
+
+    }
+
+
+    @*<img src="~/Images/aaa.jpg" class="background-image" />*@
+    <div class="Login-form">
+
+
+
+        <form class="form-right" id="loginForm">
+            <input type="text" placeholder="Email" id="i1" />
+            <input type="password" placeholder="Password" id="i2" />
+            <span id="span_Login"></span>
+            <label>@ViewBag.Notification </label>
+            <button type="submit" id="SUBMIT" class="a">Submit</button>
+            New User ?  <div class="a"><a href="@Url.Action("Signup", "User")">Signup</a></div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var email = document.getElementById('i1').value.trim();
+        var password = document.getElementById('i2').value.trim();
+
+        if (email=="" || password == "") {
+            document.getElementById('span_Login').innerHTML = "Empty Credients"
+            return;
+
+        }
+        else {
+
+            var Data = {
+                Email: email,
+                Password: password
+            };  
+
+            console.log(Data.Email);
+
+            $.ajax({
+                url: '/User/Login',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(Data),
+                success: function (response) {
+                    if (response.success) {
+                        debugger
+                        window.location.href = response.redirectUrl;
+                    } else {
+                        document.getElementById('span_Login').innerHTML = "Wrong Credits"
+                    }
+                },
+                error: function () {
+                    alert("Error while logging in. Please try again.");
+                }
+            });
+        }
+    });
+    
+</script>

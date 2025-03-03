@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "dashboard";
+}
+
+<style>
+    a{
+        text-decoration:none
+    }
+    .middle{
+        position:absolute;
+        width:50%;
+        height:50%;
+        
+        top:25%;
+        left:25%;
+        
+
+
+    }
+    .navbar1 {
+        display: flex;
+        position: absolute;
+        background-color:darkturquoise;
+        justify-content: space-between;
+        width: 100%;
+        z-index: 3;
+        height: 6%;
+        align-items: center;
+    }
+    .middle-circle {
+       position:absolute;
+        width: 25%;
+        height: 33.33%;
+        background-color: white;
+        top: 33.3%;
+        left: 40%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+       
+    }
+    .aqws{
+
+        width:25%;
+        height:33.33%;
+        position:absolute;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+    }
+    .left {
+        top: 33.3%;
+        left: 15%;
+        background-color: #156FB4;
+    }
+    .top {
+        top: 0%;
+        left: 40%;
+        background-color: #156FB4;
+    }
+    .bottom {
+        bottom: 0;
+        background-color: #156FB4;
+        left: 40%;
+    }
+    .right {
+        background-color: #156FB4;
+        right: 10%;
+        top: 33.3%;
+    }
+    .left-top {
+        left: 15%;
+        top: 0;
+        background-color: #C8C8C8;
+    }
+
+    .left-bottom {
+        left: 15%;
+        bottom: 0;
+        background-color: #C8C8C8;
+    }
+    .right-top {
+        right: 10%;
+        top: 0;
+        background-color: #C8C8C8;
+    }
+    .right-bottom {
+        right: 10%;
+        bottom: 0;
+        background-color: #C8C8C8;
+    }
+    .aqws:hover{
+        cursor:pointer;
+        background-color:rgba(0,0,0,0.5);
+        transition:ease-in-out 0.5s;
+    }
+    .middle p{
+        color:black;
+    }
+    body{
+        overflow:hidden;
+    }
+</style>
+
+<div class="Aadashboard_cointainer">
+
+    <div class="middle">
+
+        <a href="~/bill/Index">
+            <div class="left aqws">
+                <p>
+                    BiLL details
+                </p>
+
+            </div>
+        </a>
+        <a href="~/Delete/Index">
+            <div class="right aqws">
+                <p>
+                    Deleted Records
+                </p>
+
+            </div>
+        </a>
+        <a href="~/Booking/Index">
+            <div class="top aqws">
+                <p>
+                    Booking details
+                </p>
+
+            </div>
+        </a>
+        <a href="~/Entry/Index2">
+            <div class="bottom aqws">
+                <p>
+                    Record Entry
+                </p>
+
+            </div>
+        </a>
+        <div class="middle-circle">
+            <p>
+                Superadmin
+            </p>
+
+        </div>
+        <a href="~/User/Index">
+            <div class="left-top aqws">
+                <p>
+                    Users details
+                </p>
+            </div>
+        </a>
+        <a href="~/Area/Index">
+            <div class="right-top aqws">
+                <p>
+                    Area details
+                </p>
+            </div>
+        </a>
+
+        <div class="left-bottom aqws">
+
+            <p>
+                Extra
+            </p>
+        </div>
+
+        <a href="~/Admin/Index">
+
+            <div class="right-bottom aqws">
+                <p>
+                    Admin List
+                </p>
+            </div>
+            </a>
+
+
+    </div>
+
+
+
+</div>
+

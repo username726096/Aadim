@@ -1,0 +1,207 @@
+﻿@model AadimPark.Models.ViewModels.AreaVM
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/all.min.css" rel="stylesheet" />
+<style>
+
+    .index-Area {
+        position: ;
+        top: 15%;
+        left: -5%;
+        width: 100%;
+        display:flex;
+        flex-direction:column;
+        justify-content:end;
+        align-items:end;
+    }
+
+    table {
+        width: 90%;
+    }
+
+    table, td, tr {
+        border: 1px solid black
+    }
+
+    .index-Area button {
+
+  
+    }
+    h1{
+        position:absolute;
+        left:50%;
+        top:-20%;
+
+    }
+    .a {
+        width: 119px;
+        height: 50px;
+        background-color: rgba(255, 102, 0, 0.5);
+        border-radius: 40px 40px 40px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+    body {
+        overflow: hidden;
+    }
+</style>
+<div class="index-Area">
+    <h1>Area Details</h1>
+    <button style="position:relative;right:70px" class="a"><a style="color:black;" href="@Url.Action("Add", "Area")"><a style="color:black;" href="@Url.Action("Add", "Area")"> Add</a></button>
+    <table class="">
+        <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Total Capacity</th>
+
+                <th style="margin-left: 50px; margin-right: 20px;">Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int serialNumber = 1;
+            }
+            @foreach (var product in Model.Areas)
+            {
+
+                <tr>
+                    <td>@serialNumber</td>
+                    <td>@product.Name</td>
+                    <td>@product.Address</td>
+                    <td>@product.Total_capacity</td>
+
+
+                    <td>
+
+
+
+                        <i class="fa-solid fa-eye" onclick="toggleDetails(@product.id)"></i>
+
+                    </td>
+                </tr>
+                <tr id="details-@product.id" style="display:none;">
+                    <td colspan="5">
+                        <table class="details-table">
+                            <thead>
+                                <tr>
+
+                                    <th>fourWheel_capacity</th>
+                                    <th>fourWheel_occupied</th>
+                                    <th>twoWheel_occupied</th>
+                                    <th>twoWheel_capacity   </th>
+                                    <th>twoWheel_price   </th>
+                                    <th>fourWheel_price   </th>
+
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detail in Model.Area_Details.Where(d => d.Area_id == product.id))
+                                {
+                                    <tr>
+
+                                        <td>@detail.fourWheel_capacity</td>
+                                        <td>@detail.fourWheel_occupied</td>
+                                        <td>@detail.twoWheel_occupied</td>
+                                        <td>@detail.twoWheel_capacity</td>
+                                        @if (detail.two_price != null)
+                                        {
+                                            <td>@detail.two_price</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>Not Set</td>
+
+                                        }
+                                        @if (detail.four_price != null)
+                                        {
+                                            <td>@detail.four_price</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>Not Set</td>
+
+                                        }
+
+                                        <td><button onclick="deleteFunction(@detail.Area_id)"> Delete</button></td>
+                                        <td><button> <a href="@Url.Action("Edit", "Area", new { id = @product.id })">Edit</a></button></td>
+
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                serialNumber++;
+            }
+
+        </tbody>
+    </table>
+
+</div>
+<script type="text/javascript">
+    function deleteFunction(id) {
+        debugger
+        $.ajax({
+            url: '/Area/Delete',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: id }),
+            success: function (response) {
+                if (response.success) {
+                    window.open.href= "/Area/index"
+                 
+                } else {
+                    alert('Deletion failed. Please try again.');
+                }
+            },
+            error: function () {
+                alert('An error occurred while trying to delete the user.');
+            },
+        });
+
+
+    }
+    function editFunction(id) {
+        debugger
+        $.ajax({
+            url: '/Area/Edit',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: id }),
+            success: function (response) {
+                if (response.success) {
+                    window.open.href = "/Area/index"
+
+                } else {
+                    alert('Deletion failed. Please try again.');
+                }
+            },
+            error: function () {
+                alert('An error occurred while trying to delete the user.');
+            },
+        });
+
+
+    }
+    function toggleDetails(id) {
+        var detailsRow = document.getElementById('details-' + id);
+        if (detailsRow.style.display === 'none') {
+            detailsRow.style.display = 'table-row';
+        } else {
+            detailsRow.style.display = 'none';
+        }
+    }
+</script>
+
+
+

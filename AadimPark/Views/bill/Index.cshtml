@@ -1,0 +1,122 @@
+﻿@model AadimPark.Models.ViewModels.billVM 
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .userBooks-container {
+        width: 100%;
+        height: 79vh;
+        top: 5%;
+        left: auto;
+        background: whitesmoke;
+    }
+
+        .userBooks-container table {
+            gap: 2rem;
+        }
+
+        .userBooks-container table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .userBooks-container th,
+        .userBooks-container td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .userBooks-container a {
+            color: black;
+        }
+
+        .userBooks-container p {
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+</style>
+
+<div class="userBooks-container">
+    <table>
+
+        <thead>
+            <tr>
+
+                <th>SN</th>
+                <th>type</th>
+                <th>money</th>
+                <th>entry_id</th>
+                <th>booking</th>
+               
+
+
+              
+
+            </tr>
+
+
+
+
+        </thead>
+        <tbody>
+            @{
+                int serialNumber = 1;
+            }
+            @foreach (var product in Model.bills)
+            {
+
+                <tr>
+                    <td> @serialNumber  </td>
+                    <td> @product.type  </td>
+                    @if (@product.money == null)
+                    {
+                        <td> Free </td>
+
+                    }
+                    else
+                    {
+                       <td> @product.money</td>
+                    }
+                    <td> @product.entry_id </td>
+
+
+                    <td>
+                        @if (@product.booking_id == null)
+                        {
+
+                            <text>Walk in</text>
+                        }
+                        else
+                        {
+
+                            @product.booking_id
+                        }
+
+                    </td>
+
+
+
+                   
+
+
+                    @*<td>  <button style="color:white" onclick="deleteFunction(@product.id)">Delete</button></td>*@
+                </tr>
+                serialNumber++;
+            }
+
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+    </div>

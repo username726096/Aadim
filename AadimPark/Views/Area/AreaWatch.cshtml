@@ -1,0 +1,193 @@
+﻿@model AadimPark.Models.Area_details
+@{
+    ViewBag.Title = "AreaWatch";
+}
+<link href="~/Content/all.min.css" rel="stylesheet" />
+<style>
+
+    #car_vacent {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        height:15%;
+        margin-top:2%;
+        padding:5px 3px;
+
+    }
+
+    #bike_vacent {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        height: 15%;
+        padding: 5px 3px;
+    }
+
+    #car_occupied {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        height: 15%;
+        padding: 5px 3px;
+    }
+
+    #bike_occupied {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        height: 15%;
+        padding: 5pc 3px;
+    }
+    .car-vacant {
+        color: green;
+        width: 5%;
+        height: 40%;
+        font-size: 40px;
+    }
+    .car-occupied {
+        color: red;
+        width: 5%;
+        height: 40%;
+        font-size: 40px;
+    }
+    .bike-occupied {
+        color: red  ;
+        width: 5%;
+        height: 40%;
+        font-size: 40px;
+    }
+    .bike-vacant {
+        color: green;
+        width: 5%;
+        height: 40%;
+        font-size:40px;
+    }
+    .area-watcher-content {
+        position: ;
+        width: 100%;
+        height: 100%;
+        top: 10%;
+               background-color: whitesmoke ;
+
+        left: 10%;
+    }
+    #vechical_info_contianer {
+        height: 94%;
+        display: flex;
+        flex-direction: column;
+        gap: 1%
+    }
+    .area-watcher-container {
+        position: ;
+        width: 100%;
+        height: 79vh;
+    }
+    i:hover{
+        transition:0.9s;
+        scale:1.5;
+    }
+
+    body {
+        overflow: hidden;
+    }
+</style>
+<div class="area-watcher-container">
+    <div class="area-watcher-content">
+        <label for="areaOptions" style="margin-left:45%">Select A Spot to View:</label>
+        <select id="areaOptions" class="form-control" style="margin-left:40%">
+            <option value="">Select an Area</option>
+            @foreach (var item in ViewBag.Areas as List<SelectListItem>)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+        <div id="vechical_info_contianer">
+            <div id="car_vacent">
+
+            </div>
+
+            <div id="car_occupied">
+
+            </div>
+            <div id="bike_vacent">
+               
+
+            </div>
+            <div id="bike_occupied">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var bike;
+    var bike_o;
+    var car;
+    var car_o;
+
+    $(document).ready(function () {
+        $('#areaOptions').change(function () {
+            var areaId = $(this).val();
+
+            if (areaId) {
+                var actionUrl = '@Url.Action("AreaWatch", "Area")';  
+                $.ajax({
+                    url: actionUrl,
+                    type: 'POST',
+                    data: { Area_id: areaId },
+                    success: function (data) {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            
+                            bike = data.twoWheel_capacity;  
+                            bike_o = data.twoWheel_occupied; 
+                            car = data.fourWheel_capacity;  
+                            car_o = data.fourWheel_occupied; 
+
+                          
+                            $('#car_vacent').empty();
+                            $('#car_occupied').empty();
+                            $('#bike_vacent').empty();
+                            $('#bike_occupied').empty();
+
+                     
+                            for (let i = 0; i < car - car_o; i++) {
+                                let carVacantDiv = $('<i class="fa-solid fa-car car-vacant"></i>')
+                                    
+                                 ;
+                                $('#car_vacent').append(carVacantDiv);
+                            }
+
+                         
+                            for (let i = 0; i < car_o; i++) {
+                                let carOccupiedDiv = $(' <i class="fa-solid fa-car car-occupied "></i>')
+                                $('#car_occupied').append(carOccupiedDiv);
+                            }
+
+                          
+                            for (let i = 0; i < bike - bike_o; i++) {
+                                let bikeVacantDiv = $(' <i class="fa-solid fa-motorcycle bike-vacant "></i>')
+                                    
+                                $('#bike_vacent').append(bikeVacantDiv);
+                            }
+
+                        
+                            for (let i = 0; i < bike_o; i++) {
+                                let bikeOccupiedDiv = $(' <i class="fa-solid fa-motorcycle bike-occupied "></i>')
+                                $('#bike_occupied').append(bikeOccupiedDiv);
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to fetch data.');
+                    }
+                });
+            }
+        });
+    });
+</script>

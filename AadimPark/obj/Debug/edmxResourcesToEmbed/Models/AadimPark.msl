@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AadimParkModelStoreContainer" CdmEntityContainer="AadimParkEntities2">
+    <EntitySetMapping Name="Areas">
+      <EntityTypeMapping TypeName="AadimParkModel.Area">
+        <MappingFragment StoreEntitySet="Area">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Total_capacity" ColumnName="Total_capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Area_details">
+      <EntityTypeMapping TypeName="AadimParkModel.Area_details">
+        <MappingFragment StoreEntitySet="Area_details">
+          <ScalarProperty Name="four_price" ColumnName="four_price" />
+          <ScalarProperty Name="two_price" ColumnName="two_price" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fourWheel_capacity" ColumnName="fourWheel_capacity" />
+          <ScalarProperty Name="twoWheel_capacity" ColumnName="twoWheel_capacity" />
+          <ScalarProperty Name="fourWheel_occupied" ColumnName="fourWheel_occupied" />
+          <ScalarProperty Name="twoWheel_occupied" ColumnName="twoWheel_occupied" />
+          <ScalarProperty Name="Area_id" ColumnName="Area_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bookings">
+      <EntityTypeMapping TypeName="AadimParkModel.booking">
+        <MappingFragment StoreEntitySet="booking">
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="vechical_type" ColumnName="vechical_type" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="Vechical_number" ColumnName="Vechical_number" />
+          <ScalarProperty Name="Time_table_id" ColumnName="Time_table_id" />
+          <ScalarProperty Name="Area_id" ColumnName="Area_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Time_table">
+      <EntityTypeMapping TypeName="AadimParkModel.Time_table">
+        <MappingFragment StoreEntitySet="Time_table">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="month" ColumnName="month" />
+          <ScalarProperty Name="month_from" ColumnName="month_from" />
+          <ScalarProperty Name="month_to" ColumnName="month_to" />
+          <ScalarProperty Name="week" ColumnName="week" />
+          <ScalarProperty Name="week_from" ColumnName="week_from" />
+          <ScalarProperty Name="week_to" ColumnName="week_to" />
+          <ScalarProperty Name="day" ColumnName="day" />
+          <ScalarProperty Name="day_from" ColumnName="day_from" />
+          <ScalarProperty Name="day_to" ColumnName="day_to" />
+          <ScalarProperty Name="hour" ColumnName="hour" />
+          <ScalarProperty Name="hour_from" ColumnName="hour_from" />
+          <ScalarProperty Name="hour_to" ColumnName="hour_to" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="AadimParkModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Member" ColumnName="Member" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="deleted_entry">
+      <EntityTypeMapping TypeName="AadimParkModel.deleted_entry">
+        <MappingFragment StoreEntitySet="deleted_entry">
+          <ScalarProperty Name="descrpition" ColumnName="descrpition" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="entries">
+      <EntityTypeMapping TypeName="AadimParkModel.entry">
+        <MappingFragment StoreEntitySet="entry">
+          <ScalarProperty Name="Area_id" ColumnName="Area_id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Vechical_type" ColumnName="Vechical_type" />
+          <ScalarProperty Name="Vechical_number" ColumnName="Vechical_number" />
+          <ScalarProperty Name="exit_time" ColumnName="exit_time" />
+          <ScalarProperty Name="entry_time" ColumnName="entry_time" />
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admin_list">
+      <EntityTypeMapping TypeName="AadimParkModel.Admin_list">
+        <MappingFragment StoreEntitySet="Admin_list">
+          <ScalarProperty Name="Area_id" ColumnName="Area_id" />
+          <ScalarProperty Name="Admin_id" ColumnName="Admin_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cancled_booking">
+      <EntityTypeMapping TypeName="AadimParkModel.cancled_booking">
+        <MappingFragment StoreEntitySet="cancled_booking">
+          <ScalarProperty Name="vechical_number" ColumnName="vechical_number" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="time_table_id" ColumnName="time_table_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bills">
+      <EntityTypeMapping TypeName="AadimParkModel.bill">
+        <MappingFragment StoreEntitySet="bill">
+          <ScalarProperty Name="booking_id" ColumnName="booking_id" />
+          <ScalarProperty Name="entry_id" ColumnName="entry_id" />
+          <ScalarProperty Name="money" ColumnName="money" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

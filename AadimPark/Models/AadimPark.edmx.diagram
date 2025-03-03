@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a71afb7077e4902af4411ee67c237e7" Name="Diagram1" ZoomLevel="90">
+        <EntityTypeShape EntityType="AadimParkModel.Area" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AadimParkModel.Area_details" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AadimParkModel.booking" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AadimParkModel.Time_table" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AadimParkModel.User" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="true" />
+        <AssociationConnector Association="AadimParkModel.FK__Area_deta__Area___656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="AadimParkModel.FK__booking__Area_id__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="AadimParkModel.FK__booking__Time_ta__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="AadimParkModel.FK__booking__userId__6A30C649" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AadimParkModel.deleted_entry" Width="1.5" PointX="6.375" PointY="6.75" />
+        <EntityTypeShape EntityType="AadimParkModel.entry" Width="1.5" PointX="8.25" PointY="2.875" />
+        <AssociationConnector Association="AadimParkModel.FK__entry__booking_i__71D1E811" />
+        <EntityTypeShape EntityType="AadimParkModel.Admin_list" Width="1.5" PointX="6" PointY="9.125" />
+        <AssociationConnector Association="AadimParkModel.FK__Admin_lis__Admin__02FC7413" />
+        <AssociationConnector Association="AadimParkModel.FK__Admin_lis__Area___03F0984C" />
+        <EntityTypeShape EntityType="AadimParkModel.cancled_booking" Width="1.5" PointX="8.375" PointY="6.75" />
+        <AssociationConnector Association="AadimParkModel.FK__entry__Area_id__14270015" />
+        <EntityTypeShape EntityType="AadimParkModel.bill" Width="1.5" PointX="10.5" PointY="3.125" />
+        <AssociationConnector Association="AadimParkModel.FK__bill__booking_id__2B0A656D" />
+        <AssociationConnector Association="AadimParkModel.FK__bill__entry_id__2A164134" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,113 @@
+﻿@model AadimPark.Models.ViewModels.AdminVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .index-Users {
+        position:relative;
+      
+        width: 100%;
+    }
+
+        .index-Users a {
+            color: white;
+        }
+
+    table {
+        width: 90%;
+    }
+
+    table, td, tr {
+        border: 1px solid black
+    }
+
+    .index-Users button {
+    }
+
+    .a {
+        width: 150px;
+        height: 50px;
+        background-color: white;
+        border-radius: 40px 40px 40px 40px;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+
+    body {
+        overflow: hidden
+    }
+</style>
+
+<div class="index-Users">
+    <button style="position:relative;right:0px;margin-left:72rem" class="a"><a style="color:black;" href="@Url.Action("Add", "Admin")"> Add</a></button>
+
+    <table>
+
+        <thead>
+            <tr>
+
+                <th>SN</th>
+                <th>Admin_id</th>
+                <th>Area_id</th>
+                <th style="margin-left: 50px; margin-right: 20px;">Actions</th>
+
+            </tr>
+
+
+
+
+        </thead>
+        <tbody>
+            @{
+                int serialNumber = 1;
+            }
+            @foreach (var product in Model.awd)
+            {
+
+                <tr>
+                    <td> @serialNumber  </td>
+                    <td> @product.Admin_id</td>
+                    <td>@product.Area_id </td>
+                    <td> <button class="a" style="color:black" onclick="deleteFunction(@product.id)">Delete</button></td>
+                </tr>
+                serialNumber++;
+            }
+
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+</div>
+<script type="text/javascript">
+    function deleteFunction(id) {
+        debugger
+        $.ajax({
+            url: '/Admin/Delete',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: id }),
+            success: function (response) {
+                if (response.success) {
+                    alert('User deleted successfully.');
+                    location.reload();
+                } else {
+                    alert('Deletion failed. Please try again.');
+                }
+            },
+            error: function () {
+                alert('An error occurred while trying to delete the user.');
+            },
+        });
+
+
+    }
+</script>
+

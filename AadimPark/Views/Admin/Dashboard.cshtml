@@ -1,0 +1,230 @@
+﻿@model AadimPark.Models.Area_details
+@{
+    ViewBag.Title = "Dashboard";
+}
+<style>
+    .a {
+        width: 119px;
+        height: 40px;
+        background-color: #156FB4;
+        border-radius: 40px 40px 40px 40px;
+        display:;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+    body {
+        overflow: hidden;
+    }
+    .Admin-container {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        top: 25%;
+        left: 25%;
+    }
+
+    .leftt {
+        position: relative;
+        left: 15%;
+        background-color: #156FB4;
+        width: 25%;
+        height: 33.33%;
+        bottom: 33.33%;
+    }
+
+    .up {
+        position: relative;
+        top: 0%;
+        left: 40%;
+        background-color: #156FB4;
+        width: 25%;
+        height: 33.33%;
+    }
+
+    .down {
+        position: relative;
+        top: 33.33%;
+        background-color: #156FB4;
+        left: 40%;
+        width: 25%;
+        height: 33.33%;
+    }
+
+    .rightt {
+        position: relative;
+        background-color: #156FB4;
+        left: 65%;
+        width: 25%;
+        height: 33.33%;
+        bottom: 66.66%;
+    }
+
+    .centree {
+        width: 25%;
+        height: 33.33%;
+        position: relative;
+        left: 40%;
+        bottom: 100%;
+        background-color: whitesmoke;
+    }
+
+    .swag {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+        .swag a {
+            height: 100%;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+    #validate {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 50%;
+        top: 5rem;
+        left: 15rem;
+    }
+   
+</style>
+@if (Session["Id"] != null && Session["Role"]?.ToString() == "Admin")
+{
+
+    <div class="Admin-container">
+
+        <div class="up swag">
+            <a href="~/Entry/Index">
+
+                <p>
+                    Entry Details
+                </p>
+                </a>
+        </div>
+        <div class="down swag">
+            <p>
+                Admin Details
+            </p>
+        </div>
+
+        <div class="leftt swag">
+            <a href="~/Entry/Entry_vechical">
+
+                <p>
+                    Entry Vechical
+                </p>
+            </a>
+
+        </div>
+
+        <div class="rightt swag">
+            <a href="~/Entry/Exit">
+
+                <p>
+                    Exit Vechical
+
+                </p>
+            </a>
+
+        </div>
+
+        <div class="centree swag">
+            <p>
+               Admin Dashboard
+            </p>
+
+        </div>
+
+
+
+
+    </div>
+
+
+    <form id="validate">
+        <div style="display:flex;justify-content:center;align-items:center">
+            <label for="areaOptionsAdmin" style="margin-left:35%">Select A Area </label>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;gap:15px">
+
+            <select id="areaOptionsAdmin" class="form-control" style="margin-left:40%">
+                <option value="">Select an Area</option>
+                @foreach (var item in ViewBag.Areas as List<SelectListItem>)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <button  class="a" id="vald" type="submit">
+                check
+
+            </button>
+        </div>
+        <div>
+            <span id="span_Admin" style="margin-left:62%;color:red"></span>
+
+        </div>
+    </form>
+
+    <div style="position: absolute; top: 2.8rem; height: auto; width: 85%; background-color: #fff3cd; color: #664d03; font-size:larger;">
+        @TempData["Noti"]
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+   $(document).ready(function () {
+    $('#vald').click(function (event) {
+        event.preventDefault();
+        var A_Id = $('#areaOptionsAdmin').val();
+        var Id = '@Session["Id"]';
+
+        var Data = {
+            Id: parseInt(Id, 10),
+            A_Id: parseInt(A_Id, 10)
+        };
+
+        if (A_Id) {
+            var actionUrl = '@Url.Action("Validate", "Entry")';
+
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                contentType: 'application/json',  // Ensure the data is sent as JSON
+                data: JSON.stringify(Data),
+                success: function (response) {
+                    if (response.success) {
+                        $('#span_Admin').text("Allowed");
+                    } else {
+                        $('#span_Admin').text("Not allowed");
+                    }
+                },
+                error: function () {
+                    alert("Error while validating. Please try again.");
+                }
+            });
+        } else {
+            alert("Invalid A_Id.");
+        }
+    });
+});
+    </script>
+}
+else
+{
+    TempData["Noti"] = "Session expired";
+    <script type="text/javascript">
+        window.onload = function () {
+
+            window.location.href = "/User/login"
+        }
+    </script>
+}
+
+

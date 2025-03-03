@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Entry_vechical";
+
+
+}
+<style>
+    .a {
+        width: 15rem;
+        height: 45px;
+        background-color: #156FB4;
+        border-radius: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    body{
+        overflow:hidden;
+
+    }
+
+        .a:hover {
+            background-color: #0f5a94;
+        }
+
+    .entry {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color:;
+    }
+
+    #entryForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+        background: white;
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom:3rem;
+    }
+
+        #entryForm .form-group {
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        #entryForm label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: #333;
+        }
+
+        #entryForm .input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+            #entryForm .input:focus {
+                border-color: #156FB4;
+                outline: none;
+            }
+
+        
+
+</style>
+@if (Session["Allow"] != null && (bool)Session["Allow"])
+{
+
+    <div class="entry">
+        <form id="entryForm">
+            <div class="form-group">
+                <label for="vehicleNumber">Vehicle Number</label>
+                <input type="text" id="vehicleNumber" class=" form-control input" />
+            </div>
+
+            <div class="form-group">
+                <label for="vType">Vehicle Type</label>
+                <select id="vType" class="form-control input">
+                    <option value="">Select Vehicle Type</option>
+                    <option value="2">2 Wheeler</option>
+                    <option value="4">4 Wheeler</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="booking">Booking</label>
+                <input type="number" id="booking" class="form-control input" />
+            </div>
+            <div class="form-group">
+                <button id="btnEntry" style="width:15rem" class="form-control a" type="submit">
+                    Entry
+                </button>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+   $(document).ready(function () {
+       $('#btnEntry').click(function (event) {
+        event.preventDefault();
+           var vehicleNumber = $('#vehicleNumber').val().trim();
+           var vehicleType = $('#vType').val();
+           var bookingId = $('#booking').val().trim();
+
+           console.log(vehicleNumber)
+          
+           if (vehicleNumber.trim() === "") {
+               alert("Invalid vehicle number");
+               return;
+           }
+
+       
+
+        var Data = {
+            booking_id: bookingId,
+            V_number: vehicleNumber,
+            V_type: vehicleType,
+        };
+
+        
+            var actionUrl = '@Url.Action("Entry_vechical", "Entry")';
+
+            $.ajax({
+                url: '/Entry/Entry_vechical',
+                type: 'POST',
+                contentType: 'application/json',  
+                data: JSON.stringify(Data),
+                success: function (response) {
+                    if (response.success) {
+                       
+                        alert("Success");
+                        window.location.reload();
+                    } else {
+                        $('#span_entry').text("Not entered");
+                    }
+                },
+                error: function () {
+                    alert("Error while validating. Please try again.");
+                }
+            });
+      
+    });
+});
+    </script>
+
+
+
+
+
+}
+else
+{
+    TempData["Noti"] = "Please request area first";
+    <script type="text/javascript">
+        window.onload = function () {
+
+            window.location.href = "/Admin/dashboard"
+        }
+    </script>
+
+
+
+}
+
+

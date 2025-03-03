@@ -1,0 +1,166 @@
+﻿@model AadimPark.Models.ViewModels.EntryVM
+@{
+    ViewBag.Title = "Exit";
+}
+<style>
+    .Exit-contianer {
+        position: ;
+        width:100%;
+        top: 20%;
+        left: 15%;
+    }
+
+        .Exit-contianer table {
+            width: 100%;
+        }
+    body {
+        overflow: hidden;
+    }
+    .a {
+        width: 15rem;
+        height: 45px;
+        background-color: #156FB4;
+        border-radius: 40px;
+        display: ;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+</style>
+
+@if (Session["Allow"] != null && (bool)Session["Allow"])
+{
+    <div style="position: ; top: 2.5rem; height: auto; width: 100%; background-color: #fff3cd; color: #664d03; font-size:larger;" id="awds">
+        <span style="display: block;">@TempData["payStatus2"]</span>
+        <span style="display: block;">@TempData["pNotification"]</span>
+    </div>
+        <div class="Exit-contianer">
+          
+
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Vechical_Number</th>
+
+                        <th>Vechical_type</th>
+                        <th>Entry Time</th>
+
+
+
+
+
+
+
+                    </tr>
+
+
+                </thead>
+                <tbody>
+                    @{
+                        int serialNumber = 1;
+                    }
+                    @foreach (var product in Model.entries)
+                    {
+
+                        <tr>
+                            <td> @serialNumber  </td>
+                            <td> @product.Vechical_number</td>
+                            <td>@product.Vechical_type </td>
+                            <td>@DateTime.Parse(product.entry_time.ToString()).ToString("yyyy-MM-dd HH:mm:ss")</td>
+
+                            <td> <button class="a" onclick="Paycash(@product.id)">PAY CASH</button></td>
+                            <td>
+                                <button class="a"><a href="@Url.Action("Checkout", "Payment2", new { idd = @product.id })">Pay Online </a></button>
+                            </td>
+
+                            <td> <button class="a" onclick="exitVehicle(@product.id)">Exit</button></td>
+                        </tr>
+                        serialNumber++;
+                    }
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+    function Paycash(id) {
+    $.ajax({
+        url: '@Url.Action("Cash", "Entry")',
+        type: 'POST',
+        data: { id: id },
+        success: function(response) {
+            if (response.success) {
+
+                alert(response.Amount);
+
+            } else {
+                $("#awds").text(response.message);
+
+            }
+        },
+        error: function() {
+            alert('Error while making the request');
+        }
+    });
+    }
+    function Payonline(id) {
+    $.ajax({
+        url: '@Url.Action("Online", "Entry")',
+        type: 'POST',
+        data: { id: id },
+        success: function(response) {
+            if (response.success) {
+                alert('Vehicle exited successfully');
+                window.location.reload();
+            } else {
+                $("#awds").text(response.message);
+
+            }
+        },
+        error: function() {
+            alert('Error while making the request');
+        }
+    });
+}
+    function exitVehicle(id) {
+        $.ajax({
+            url: '@Url.Action("Exit", "Entry")',
+            type: 'POST',
+            data: { id: id },
+            success: function(response) {
+                if (response.success) {
+                    alert('Vehicle exited successfully');
+                    window.location.reload();
+                } else {
+                    alert('Error occurred while exiting the vehicle');
+                }
+            },
+            error: function() {
+                alert('Error while making the request');
+            }
+        });
+    }
+        </script>
+        }
+        else {
+        TempData["Noti"] = "Please request area first";
+        <script type="text/javascript">
+            window.onload = function () {
+
+                window.location.href = "/Admin/dashboard"
+            }
+        </script>
+        }

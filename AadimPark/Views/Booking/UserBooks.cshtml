@@ -1,0 +1,118 @@
+﻿@model AadimPark.Models.ViewModels.BookingVM
+@{
+    ViewBag.Title = "UserBooks";
+    AadimPark.Models.AadimParkEntities2 db = new AadimPark.Models.AadimParkEntities2();
+}
+
+<style>
+    .userBooks-container {
+      
+        width: 100%;
+        height: 79vh;
+        top: 5%;
+        left: auto;
+        background:whitesmoke;
+    }
+        
+    .userBooks-container table{
+        gap:2rem;
+    }
+        .userBooks-container table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .userBooks-container th,
+        .userBooks-container td {
+            padding: 15px;
+            border: 1px solid #ddd; 
+        }
+   .userBooks-container a{
+       color:black; 
+   }
+   .userBooks-container p{
+       color:black;
+       margin:0;
+       padding:0;
+   }
+
+    body {
+        overflow: hidden;
+    }
+    .a {
+        width: 119px;
+        height: 40px;
+        background-color: rgba(255, 102, 0, 0.5);
+        border-radius: 40px 40px 40px 40px;
+        display:;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+
+</style>
+<div class="userBooks-container">
+
+
+    <table>
+        <thead>
+
+            <tr>
+                <th>
+                    SN
+                </th>
+                <th>
+                    Vechical number
+                </th>
+                <th>
+                    Booking Id
+                </th>
+                <th>
+                    Vechial type
+                </th>
+                <th>
+
+                    Area
+                </th>
+                <th>
+                    Options
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int serialNumber = 1;
+            }
+            @foreach (var product in Model.bookingg)
+            {
+                var areaName = db.Areas.Where(u => u.id == product.Area_id).FirstOrDefault();
+
+                <tr>
+                    <td> @serialNumber  </td>
+                    <td> @product.Vechical_number</td>
+                    <td> @product.id</td>
+
+                    <td>@product.vechical_type Wheller </td>
+                    <td>@areaName.Name </td>
+                    <td>
+                        <button class="a" onclick="return confirm('Are you sure you want to cancle this booking ');"> <a href="@Url.Action("Cancel", "Booking", new { id = @product.id })">Cancle</a></button>
+                        <button style="color:white" class="a"><a href="@Url.Action("Checkout", "Payment", new { id = @product.id })">Pay</a></button>
+                    </td>
+                </tr>
+                serialNumber++;
+            }
+
+        </tbody>
+
+
+    </table>
+
+    <div style="position: absolute; top: 2.5rem; height: auto; width: 100%; background-color: #fff3cd; color: #664d03; font-size:larger;">
+        @TempData["payStatus"]
+    </div>
+
+</div>

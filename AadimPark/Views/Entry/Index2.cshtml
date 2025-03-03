@@ -1,0 +1,144 @@
+﻿@model AadimPark.Models.ViewModels.EntryVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .index-Users {
+        position: ;
+        top: 10%;
+        left: 5%;
+        width: 100%;
+    }
+
+        .index-Users a {
+            color: white;
+        }
+
+    table {
+        width: 90%;
+    }
+
+    table, td, tr {
+        border: 1px solid black
+    }
+
+    .index-Users button {
+        background-color: black;
+    }
+        .a {
+            width: 119px;
+            height: 50px;
+            background-color: rgba(255, 102, 0, 0.5);
+            border-radius: 40px 40px 40px 40px;
+            display:;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+    body {
+        overflow: hidden;
+    }
+</style>
+
+    <div class="index-Users">
+        <table>
+
+            <thead>
+                <tr>
+
+                    <th>SN</th>
+                    <th>Booking_id</th>
+                    <th>Entry_TIME</th>
+                    <th>Exit_time</th>
+                    <th>Vechical_NUMBER</th>
+                    <th>Vechical_Type</th>
+
+
+                    <th style="margin-left: 50px; margin-right: 20px;">Actions</th>
+
+                </tr>
+
+
+
+
+            </thead>
+            <tbody>
+                @{
+                    int serialNumber = 1;
+                }
+                @foreach (var product in Model.entries)
+                {
+
+                    <tr>
+                        <td> @serialNumber  </td>
+                        <td>
+                            @if (@product.booking_id == null)
+                            {
+
+                                <text>Walk in</text>
+                            }
+                            else
+                            {
+
+                                @product.booking_id
+                            }
+
+                        </td>
+                        <td>@DateTime.Parse(product.entry_time.ToString()).ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        @if (product.exit_time == null)
+                        {
+                            <td>Not Exited</td>
+                        }
+                        else
+                        {
+                            <td>@DateTime.Parse(product.exit_time.ToString()).ToString("yyyy-MM-dd HH:mm:ss")</td>
+
+                        }
+
+
+                        <td> @product.Vechical_number</td>
+                        <td> @product.Vechical_type</td>
+
+
+                        <td>  <button class="a" style="color:white" onclick="deleteFunction(@product.id)">Delete</button></td>
+                    </tr>
+                    serialNumber++;
+                }
+
+            </tbody>
+
+
+
+
+
+
+
+        </table>
+    </div>
+    <script type="text/javascript">
+        function deleteFunction(id) {
+            debugger
+            $.ajax({
+                url: '/Entry/Delete',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: id }),
+                success: function (response) {
+                    if (response.success) {
+                        alert('User deleted successfully.');
+                        location.reload();
+                    } else {
+                        alert('Deletion failed. Please try again.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while trying to delete the user.');
+                },
+            });
+
+
+        }
+    </script>
+

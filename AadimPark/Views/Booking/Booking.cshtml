@@ -1,0 +1,613 @@
+﻿@model  AadimPark.Models.ViewModels.BookingVM
+@{
+    ViewBag.Title = "Booking";
+}
+
+<style>
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .booking-wrapper {
+        width: 100%;
+        height: 79vh;
+        position: relative;
+    }
+
+    .background-booking {
+      background-color:whitesmoke;
+        width: 100%;
+        height: 100%;
+    }
+
+    .form-holder {
+        width: 90%;
+        height: 60%;
+        position: absolute;
+        top: 23%;
+        left: 5.5%;
+        background: rgba(255, 102, 0, 0.01);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        padding: 0 5px;
+        /* From https://css.glass */
+    }
+
+    #form_parking {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .a {
+        width: 100%;
+        display: flex
+    }
+
+    .row1 {
+        width: 100%;
+        display: flex
+    }
+
+    .row2 {
+        display: flex;
+        width: 100%;
+    }
+
+    .info-holder {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .asdfghjkl {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input {
+        border-radius: 5px 5px 5px 5px;
+        height: 20px;
+    }
+
+    select {
+        border-radius: 5px 5px 5px 5px;
+        height: 40px;
+    }
+
+    input[type="number"], input[type="text"], input[type="date"], input[type="time"] {
+        border-radius: 5px 5px 5px 5px;
+        height: 40px;
+    }
+
+    #Book_button {
+        width: 20%;
+        border-radius: 10px 10px 10px 10px;
+    }
+
+        #Book_button:hover {
+            background-color: tomato;
+            transition: 0.3s ease-in-out;
+        }
+    body {
+        overflow: hidden;
+    }
+    .acdc {
+        width: 119px;
+        height: 40px;
+        background-color: rgba(255, 102, 0, 0.5);
+        border-radius: 40px 40px 40px 40px;
+        display:;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+</style>
+
+@if (Session["Id"] != null)
+{
+
+
+
+    <div class="booking-wrapper">
+        <div style="position: absolute; top: 2.5rem; height: auto; width: 100%; background-color: #fff3cd; color: #664d03; font-size:larger;">
+
+            @TempData["MemberNotification"]
+            </div>
+            <div class="background-booking">
+
+
+            </div>
+
+            <div class="form-holder">
+                <form action="" id="form_parking">
+                    <div class="row1">
+                        @Html.AntiForgeryToken()
+                        <div class="a">
+
+                            @Html.Label("dasd", "Area", new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("Areas", (IEnumerable<SelectListItem>)ViewBag.Areas, new { @class = "form-control", id = "dasd" })
+                        </div>
+                        <div class="a">
+                            <label for="type">Vechical Type</label>
+
+                            <select id="type">
+                                <option value="2">Two Whellers</option>
+                                <option value="4">Four Whellers</option>
+                            </select>
+                        </div>
+                        <div class="a">
+                            <label for="v_num">Vechical Number</label>
+
+                            <input type="text" id="v_num" />
+                        </div>
+
+                    </div>
+                    <div class="row2">
+                        <div class="info-holder">
+                            <label for="month_num">How Long(Months)</label>
+
+                            <select id="month_num">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <div id="month_details" class="asdfghjkl" style="display:none">
+                                <label for="months_from">Months From:</label>
+                                <select id="months_from">
+
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+
+                                <label for="months_from">Months To:</label>
+                                <select id="months_to">
+
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="info-holder">
+                            <label for="weeks_num">Select a week</label>
+                            <select id="weeks_num">
+                                <option value="0">Weeks</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+
+                            </select>
+                            <div id="weeks_details" class="asdfghjkl" style="display:none">
+                                <label for="weeks_from">Week From:</label>
+                                <select id="weeks_from">
+                                    <option value="0">Weeks</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+
+                                </select>
+                                <label for="weeks_to">Week To:</label>
+                                <select id="weeks_to">
+                                    <option value="0">Weeks</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="info-holder">
+                            <label for="days_total">Select Total days</label>
+                            <input type="number" id="days_total" max=30 />
+
+                            <div id="days_details" class="asdfghjkl" style="display:none">
+
+
+                                <label for="date_from">Date From</label>
+                                <input type="date" id="date_from" />
+
+
+                                <label for="date_to"> Date To</label>
+                                <input type="date" id="date_to" />
+
+
+
+                            </div>
+                        </div>
+                        <div class="info-holder">
+                            <label for="hours_num">hours_total</label>
+                            <select id="hours_num">
+                                @for (int i = 0; i < 25; i++)
+                                {
+                                    <option value=@i>@i </option>
+
+                                }
+                                @*<option value="0">Weeks</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="4">4</option>
+
+                                <option value="4">4</option>*@
+
+
+
+                            </select>
+
+                            <div id="hours_details" class="asdfghjkl" style="display:none">
+                                <label for="hour_from">hours From</label>
+
+                                <input type="time" id="hour_from" />
+
+
+                                <label for="hour_to">hours To</label>
+
+                                <input type="time" id="hour_to" />
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <span id="error_msg"></span>
+                    <button type="submit" class="acdc" id="Book_button">Submit</button>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script>
+
+            $(document).ready(function () {
+
+                $('#month_num').change(function () {
+                    const monthRange = $('#month_details');
+                    if ($(this).val() > 0) {
+                        monthRange.css('display', 'flex');
+
+                        const selectedMonth = $(this).val();
+                        $("#months_to").val(selectedMonth)
+                    } else {
+                        monthRange.css('display', 'none');
+                    }
+                });
+
+                $('#weeks_num').change(function () {
+                    const weekRange = $('#weeks_details');
+                    if ($(this).val() > 0) {
+                        weekRange.css('display', 'flex');
+
+                        const selectedWeek = $(this).val();
+
+                    } else {
+                        weekRange.css('display', 'none');
+                    }
+                });
+
+                $('#days_total').change(function () {
+                    const dayRange = $('#days_details');
+                    if ($(this).val() > 0) {
+                        dayRange.css('display', 'flex');
+
+                        const selectedDay = $(this).val();
+                        $('#date_from').val($('#date_to').val());
+                    } else {
+                        dayRange.css('display', 'none');
+                    }
+                });
+
+                $('#hours_num').change(function () {
+                    const hourRange = $('#hours_details');
+                    if ($(this).val() > 0) {
+                        hourRange.css('display', 'flex');
+
+                        const selectedHour = $(this).val();
+                        $('#hour_from').val($('#hour_to').val());
+                    } else {
+                        hourRange.css('display', 'none');
+                    }
+                });
+
+                $('#form_parking').submit(function (event) {
+                    event.preventDefault();
+
+                    let month = $('#month_num').val();
+                    const month_a = $('#months_from').val();
+                    const month_b = $('#months_to').val();
+                    let week = $('#weeks_num').val();
+                    const week_a = $('#weeks_from').val();
+                    const week_b = $('#weeks_to').val();
+                    let day = $('#days_total').val();
+                    const day_a = $('#date_from').val();
+                    const day_b = $('#date_to').val();
+                    let hour = $('#hours_num').val();
+                    const hour_a = $('#hour_from').val();
+                    const hour_b = $('#hour_to').val();
+                    const Area_id = $('#dasd').val();
+                    const Vechical_number = $('#v_num').val();
+                    const Vechical_type = $('#type').val();
+
+                    var validatedWeek;
+                    var validatedMonth;
+                    var validatedDate;
+                    var validatedDay;
+                    debugger
+                    if (month != "0") {
+                        validatedMonth = validateMonths(month, month_a, month_b);
+
+                    }
+                    else {
+                        month = 0;
+                        validatedMonth = { valid: true }
+
+                    }
+                    if (week != "0" && week != "") {
+                        validatedWeek = validateWeek(week, week_a, week_b);
+                    }
+                    else {
+                        if (month = 0) {
+                            week = 0
+                        }
+                        else {
+                            week = 4;
+                        }
+
+                        validatedWeek = { valid: true };
+                    }
+                    debugger
+                    if (day != "" && day != "0") {
+
+                        validatedDate = validateDateRange(day, day_a, day_b);
+
+                    }
+                    else {
+                        if (week || month) {
+                            day = 30;
+                            validatedDate = { valid: true };
+                        }
+                        else {
+                            day = 0;
+                            validatedDate = { valid: false };
+
+                        }
+
+                    }
+
+                    if (hour != "0") {
+
+                        validatedDay = validateDays(hour, hour_a, hour_b);
+
+                    }
+                    else {
+                        if (week || month || day) {
+                            hour = 24;
+                            validatedDay = { valid: true };
+                        }
+                        else {
+                            hour = 0;
+                            validatedDay = { valid: true };
+
+                        }
+
+
+                    }
+
+                    let Time_table = {
+                        month: month,
+                        month_from: month_a,
+                        month_to: month_b,
+                        week: week,
+                        week_from: week_a,
+                        week_to: week_b,
+                        hour: hour,
+                        hour_from: hour_a,
+                        hour_to: hour_b,
+                        day: day,
+                        day_from: day_a,
+                        day_to: day_b,
+
+
+
+                    };
+
+                    if (
+                        validatedMonth.valid == true &&
+                        validatedWeek.valid == true &&
+                        validatedDate.valid == true &&
+                        validatedDay.valid === true &&
+                        Area_id !== null &&
+                        Vechical_number !== null &&
+                        Vechical_type !== null
+                    ) {
+                        const data = {
+                            Area_id: Area_id,
+                            Vechical_number: Vechical_number,
+                            Vechical_type: Vechical_type,
+                            Time_table: Time_table,
+                        };
+
+                        $.ajax({
+                            url: '/Booking/Booking',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (response) {
+                                if (response.Sucess) {
+                                    window.location.href = '/Dashboard/dashboard';
+                                } else {
+                                    alert(response.message);
+                                }
+                            },
+                            error: function () {
+                                alert('Error while logging in. Please try again.');
+                            },
+                        });
+                    } else {
+                        $('#error_msg').text("Wrong information. Please check your inputs.");
+                    }
+                });
+            });
+
+
+
+            function validateMonths(totalMonths, monthFrom, monthTo) {
+
+
+                if (monthFrom > monthTo) {
+                    return { valid: false, error: "'Month from' cannot be greater than 'month to'." };
+                }
+
+
+                const calculatedTotal = monthTo - monthFrom + 1;
+                if (calculatedTotal !== parseInt(totalMonths)) {
+                    return {
+                        valid: false,
+                        error: `The range from ${monthFrom} to ${monthTo} does not match the total of ${totalMonths} months.`
+                    };
+                }
+
+
+                return { valid: true };
+            }
+            function validateWeek(totalWeek, WeekFrom, WeekTo) {
+                if (WeekFrom > WeekTo) {
+                    return { valid: false };
+                }
+                const calculatedTotal = WeekTo - WeekFrom + 1;
+                if (calculatedTotal !== totalWeek) {
+                    return {
+                        valid: true
+                    };
+                }
+            }
+
+            function validateDateRange(totalDays, dayFrom, dayTo) {
+
+                const fromDate = new Date(dayFrom);
+                const toDate = new Date(dayTo);
+
+                if (toDate < fromDate) {
+                    return { valid: false, message: "'To' date cannot be before 'From' date." };
+                }
+
+
+                const timeDifference = toDate - fromDate;
+                const difference = timeDifference / (1000 * 3600 * 24) + 1;
+
+
+                if (difference !== parseInt(totalDays)) {
+                    return { valid: false, message: `The range of dates must exactly span ${totalDays} days.` };
+                }
+
+
+                return { valid: true };
+            }
+            function validateDays(totalHours, timeFrom, timeTo) {
+
+                const fromTime = new Date(`1970-01-01T${timeFrom}:00Z`);
+                const toTime = new Date(`1970-01-01T${timeTo}:00Z`);
+
+                if (isNaN(fromTime) || isNaN(toTime)) {
+                    return { valid: false, message: "Invalid time format. Use HH:mm (24-hour format)." };
+                }
+
+                const fromHours = fromTime.getUTCHours();
+                const fromMinutes = fromTime.getUTCMinutes();
+
+                const toHours = toTime.getUTCHours();
+                const toMinutes = toTime.getUTCMinutes();
+
+                let hoursDifference = toHours - fromHours;
+                let minutesDifference = toMinutes - fromMinutes;
+
+                if (minutesDifference < 0) {
+                    hoursDifference -= 1;
+                    minutesDifference += 60;
+                }
+
+                const totalDifferenceInHours = hoursDifference + minutesDifference / 60;
+
+                if (totalDifferenceInHours !== parseInt(totalHours)) {
+                    return {
+                        valid: false,
+                        message: `The range of times must exactly span ${totalHours} hours.`,
+                    };
+                }
+
+                return { valid: true, message: "The times are valid." };
+
+            }
+
+        </script>
+
+
+        }
+        else
+        {
+        TempData["Noti"]="Please Login First";
+        <script type="text/javascript">
+            window.onload = function () {
+
+                window.location.href = "/User/login"
+            }
+        </script>
+
+        }
+
+
+
+

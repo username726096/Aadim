@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AadimparkModelStoreContainer" CdmEntityContainer="AadimparkEntities1">
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="AadimparkModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="timetables">
+      <EntityTypeMapping TypeName="AadimparkModel.timetable">
+        <MappingFragment StoreEntitySet="timetable">
+          <ScalarProperty Name="Month_d" ColumnName="Month_d" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week_d" ColumnName="Week_d" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day_d" ColumnName="Day_d" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour_d" ColumnName="Hour_d" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+       
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position:absolute;
+        top:10%;
+        left:30%
+    }
+
+        .form-container div {
+            margin-bottom: 15px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .form-container button:hover {
+                background-color: #45a049;
+            }
+    .first-rw{
+        display:flex
+    }
+    .second-rw{
+        display:flex;
+        flex-wrap:wrap;
+    }
+    body {
+        overflow: hidden;
+    }
+</style>
+
+<div class="form-container">
+    <form id="form-Area">
+        <div class="first-rw">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter name" />
+            </div>
+
+            <div>
+                <label for="Location">Location</label>
+                <input type="text" id="Location" placeholder="Enter location" />
+            </div>
+
+            <div>
+                <label for="total">Total</label>
+                <input type="number" id="total" placeholder="Enter total" />
+            </div>
+        </div>
+        <div class="second-rw">
+
+            <div>
+                <label for="two_capacity">Two Capacity</label>
+                <input type="number" id="two_capacity" placeholder="Enter two capacity" />
+            </div>
+
+
+
+            <div>
+                <label for="four_capacity">Four Capacity</label>
+                <input type="number" id="four_capacity" placeholder="Enter four capacity" />
+            </div>
+            <div>
+                <label for="four_price">Four Wheller Price</label>
+                <input type="number" id="four_price" placeholder="4 wheller cost" />
+            </div>
+            <div>
+                <label for="two_price">Four Wheller Price</label>
+                <input type="number" id="two_price" placeholder="2 wheller cost" />
+            </div>
+
+
+        </div>
+            <div>
+                <span id="span_Area"></span>
+                <button type="submit">Submit</button>
+            </div>
+    </form>
+</div>
+
+<script>
+
+    document.getElementById('form-Area').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var a, b, c,d,e;
+        a = parseFloat(document.getElementById('total').value);
+        b = parseFloat(document.getElementById('two_capacity').value);
+        c = parseFloat(document.getElementById('four_capacity').value);
+        c = parseFloat(document.getElementById('four_price').value);
+        c = parseFloat(document.getElementById('two_price').value);
+
+
+      
+        debugger
+       
+        if (b + c === a) {
+
+
+
+
+
+            let formData = {
+                Name: document.getElementById('name').value,
+                Address: document.getElementById('Location').value,
+                Total_capacity: document.getElementById('total').value,
+                twoWheel_capacity: document.getElementById('two_capacity').value,
+
+                fourWheel_capacity: document.getElementById('four_capacity').value,
+                four_price: document.getElementById('four_price').value,
+                two_price: document.getElementById('four_price').value,
+
+
+            };
+            if (formData.Name != null || formData.Address != null || formData.Total_capacity != null
+                || formData.twoWheel_capacity != null || formData.fourWheel_capacity != null || formData.fourWheel_price != null || formData.fourWheel_price != null ) { 
+
+                debugger
+
+
+            $.ajax({
+                url: '/Area/Add',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.Success) {
+                        window.location.href = 'Area/index'
+                    } else {
+                        document.getElementById('span_Area').innerText = "Wrong Credits"
+                    }
+                },
+                error: function () {
+                    alert("Error while logging in. Please try again.");
+                }
+            });
+        }
+        else {
+                document.getElementById('span_Area').innerText = "Wrong Credits2"
+        }
+        }
+
+        else {
+            document.getElementById('span_Area').innerText = "Wrong Credits3"
+
+        }
+    });
+</script>

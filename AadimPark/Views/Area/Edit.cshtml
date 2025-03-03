@@ -1,0 +1,41 @@
+﻿@model AadimPark.Models.ViewModels.AreaVM
+
+<h2>Edit Area</h2>
+
+<form method="post">
+    <input type="hidden" name="id" value="@Model.Area.id" />
+
+    <label>Area Name:</label>
+    <input type="text" name="Name" value="@Model.Area.Name" required />
+
+    <label>Address:</label>
+    <input type="text" name="Address" value="@Model.Area.Address" required />
+
+    <label>Total Capacity:</label>
+    <input type="number" name="Total_capacity" value="@Model.Area.Total_capacity" required />
+
+    <h3>Area Details</h3>
+    @foreach (var detail in Model.AreaDetails)
+    {
+        <input type="hidden" name="AreaDetails[@detail.id].Area_id" value="@detail.Area_id" />
+
+        <label>Four-Wheeler Price:</label>
+        <input type="number" name="four_price" value="@detail.four_price" required />
+
+        <label>Two-Wheeler Price:</label>
+        <input type="number" name="two_price" value="@detail.two_price" required />
+
+        <label>Four-Wheeler Capacity:</label>
+        <input type="number" name="fourWheel_capacity" value="@detail.fourWheel_capacity" required />
+
+        <label>Two-Wheeler Capacity:</label>
+        <input type="number" name="twoWheel_capacity" value="@detail.twoWheel_capacity" required />
+    }
+
+    <button type="submit">Save</button>
+</form>
+<style>
+    body {
+        overflow: hidden;
+    }
+</style>

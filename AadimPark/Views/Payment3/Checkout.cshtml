@@ -1,0 +1,105 @@
+﻿@model AadimPark.Models.ViewModels.paymentVM
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        margin-left: 30rem;
+    }
+
+    .field {
+        margin-bottom: 1rem;
+    }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+            .field input:focus {
+                border-color: #156FB4;
+                outline: none;
+            }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        background-color: rgba(255, 102, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #0f5a94;
+        }
+</style>
+<body>
+    <h1>Checkout</h1>
+    <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
+        <div class="field">
+            <label for="amount">Amount</label>
+            <input type="text" id="amount" name="amount" value="@Model.Amount" required />
+        </div>
+        <input type="hidden" id="tax_amount" name="tax_amount" value="@Model.TaxAmount" />
+        <input type="hidden" id="total_amount" name="total_amount" value="@Model.TotalAmount" />
+        <input type="hidden" id="transaction_uuid" name="transaction_uuid" value="@Model.TransactionUuid" />
+        <input type="hidden" id="product_code" name="product_code" value="@Model.ProductCode" />
+        <input type="hidden" id="product_service_charge" name="product_service_charge" value="0" />
+        <input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="0" />
+        <input type="hidden" id="success_url" name="success_url" value="@Model.SuccessUrl" />
+        <input type="hidden" id="failure_url" name="failure_url" value="@Model.FailureUrl" />
+        <input type="hidden" id="signed_field_names" name="signed_field_names" value="@Model.SignedFieldNames" />
+        <input type="hidden" id="signature" name="signature" value="@Model.Signature" />
+
+        <div class="field">
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" name="first_name" />
+        </div>
+
+        <div class="field">
+
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" name="last_name" />
+        </div>
+
+        <input class="btn" type="submit" value="Pay via E-Sewa" />
+    </form>
+</body>
+
+

@@ -1,0 +1,111 @@
+﻿@model AadimPark.Models.ViewModels.UserVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .index-Users {
+        position: ;
+        top: 10%;
+        left: 5%;
+        width: 100%;
+    }
+   .index-Users a{
+       color:white;
+   }
+    table {
+        width: 90%;
+    }
+
+    table, td, tr {
+        border: 1px solid black
+    }
+
+    .index-Users button {
+   
+    }
+    .a {
+        width: 150px;
+        height: 50px;
+        background-color:white;
+        border-radius: 40px 40px 40px 40px;
+   
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+    body{
+        overflow:hidden
+    }
+</style>
+<div class="index-Users">
+    <table>
+
+        <thead>
+            <tr>
+
+                <th>SN</th>
+                <th>Email</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th style="margin-left: 50px; margin-right: 20px;">Actions</th>
+
+            </tr>
+
+
+
+
+        </thead>
+        <tbody>
+            @{
+                int serialNumber = 1;
+            }
+            @foreach (var product in Model.Users)
+            {
+
+                <tr>
+                    <td> @serialNumber  </td>
+                    <td> @product.Email</td>
+                    <td>@product.Username </td>
+                    <td>@product.Password </td>
+                    <td> <button class="a" > <a style="color:black" href="@Url.Action("Edit", "User", new { id = @product.id })">Edit</a></button> <button class="a" style="color:black" onclick="deleteFunction(@product.id)">Delete</button></td>
+                </tr>
+                serialNumber++;
+            }
+
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+</div>
+<script type="text/javascript">
+    function deleteFunction( id) { 
+         debugger
+                $.ajax({
+                    url: '/User/Delete', 
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ id: id }), 
+                    success: function (response) {
+                        if (response.success) {
+                            alert('User deleted successfully.');
+                            location.reload();
+                        } else {
+                            alert('Deletion failed. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while trying to delete the user.');
+                    },
+                });
+           
+       
+   }
+</script>
+
